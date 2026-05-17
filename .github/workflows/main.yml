@@ -32,10 +32,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Fix bin permissions
+        run: chmod -R +x node_modules/.bin
 
       - name: Build
-        run: npm run build
+        run: npx vite build
 
       - name: Copy index.html → 404.html (SPA deep-link fix)
         run: cp dist/index.html dist/404.html
