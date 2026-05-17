@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <title>N2N Meet – Peer-to-Peer Video</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <meta name="theme-color" content="#0a0e1a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="N2N Meet" />
+
+    <!-- SEO / OG -->
+    <meta name="description" content="Free peer-to-peer video meetings with deep link join support." />
+    <meta property="og:title" content="N2N Meet" />
+    <meta property="og:description" content="Free peer-to-peer video meetings." />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script>
+      // Deep link handler: supports ?join=CODE, ?room=CODE, /join/CODE
+      window.deepLinkRoom = null;
+      (function () {
+        const p = new URLSearchParams(window.location.search);
+        let room = p.get('join') || p.get('room');
+        if (!room && window.location.pathname.startsWith('/join/')) {
+          room = window.location.pathname.split('/join/')[1]?.split('?')[0];
+        }
+        if (room) {
+          window.deepLinkRoom = room.trim().toUpperCase();
+          // Clean URL without reloading
+          try { window.history.replaceState({}, '', '/'); } catch (e) {}
+        }
+      })();
+    </script>
+
+    <style>
+      /* Flash-prevention: dark background before React mounts */
+      html { background: #0a0e1a; }
+      body { margin: 0; overflow: hidden; }
+      #root { height: 100vh; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

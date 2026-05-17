@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Manuja Meet</string>
+    <string name="title_activity_main">Manuja Meet</string>
+    <string name="package_name">com.manuja.meet</string>
+    <string name="custom_url_scheme">com.manuja.meet</string>
+</resources>
